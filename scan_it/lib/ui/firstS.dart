@@ -11,12 +11,11 @@ class BarCode extends StatefulWidget {
 }
 
 class _BarCodeState extends State<BarCode> {
-
   var result = "Hey AJ ";
 
   Future _ScanBar() async {
     try {
-      ScanResult  qrResult = await BarcodeScanner.scan();
+      ScanResult qrResult = await BarcodeScanner.scan();
       setState(() {
         result = qrResult.rawContent;
       });
@@ -39,32 +38,45 @@ class _BarCodeState extends State<BarCode> {
         result = "Unknown Error $ex";
       });
     }
-    
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Hexcolor('#8C30EA'),
-        title: Text("MY CART - Landing screen",
-        style: TextStyle(
-          fontWeight: FontWeight.w600,
-          color: Hexcolor('#F9F9F9')
-          ),),
+        backgroundColor: Hexcolor(
+          '#8C30EA',
+        ),
+        title: Text(
+          "MY CART - Landing screen",
+          style: TextStyle(
+              fontWeight: FontWeight.w600,
+              color: Hexcolor(
+                '#F9F9F9',
+              )),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        backgroundColor: Hexcolor('#8C30EA'),
-        tooltip: 'Press to Scan',
-        onPressed:_ScanBar
+        elevation: 2.0,
+        child: Icon(
+          Icons.add,
+          semanticLabel: "Scan button",
         ),
+        backgroundColor: Hexcolor(
+          '#8C30EA',
+        ),
+        tooltip: 'Press to Scan',
+        onPressed: _ScanBar,
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       body: Center(
-        child: Text("$result" ,
-        style: new TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
-        )
+        child: Text(
+          "$result",
+          style: TextStyle(
+            fontSize: 30.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
     );
   }
