@@ -12,7 +12,7 @@ class BarCode extends StatefulWidget {
 
 class _BarCodeState extends State<BarCode> {
 
-  var result = "Hey AJ ";
+  var result = "Hello user! How's it going? ";
 
   Future _ScanBar() async {
     try {
@@ -23,7 +23,7 @@ class _BarCodeState extends State<BarCode> {
     } on PlatformException catch (ex) {
       if (ex.code == BarcodeScanner.cameraAccessDenied) {
         setState(() {
-          result = "Camera permission was denied";
+          result = "Please allow ScanIt to use Camera.";
         });
       } else {
         setState(() {
@@ -32,7 +32,7 @@ class _BarCodeState extends State<BarCode> {
       }
     } on FormatException {
       setState(() {
-        result = "You pressed the back button before scanning anything";
+        result = "You pressed the back button before scanning anything. Try scanning again!";
       });
     } catch (ex) {
       setState(() {
@@ -47,15 +47,16 @@ class _BarCodeState extends State<BarCode> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Hexcolor('#8C30EA'),
-        title: Text("MY CART - Landing screen",
+        title: Text("ScanIt",
         style: TextStyle(
           fontWeight: FontWeight.w600,
           color: Hexcolor('#F9F9F9')
           ),),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: Icon(Icons.camera_alt),
         backgroundColor: Hexcolor('#8C30EA'),
         tooltip: 'Press to Scan',
         onPressed:_ScanBar
